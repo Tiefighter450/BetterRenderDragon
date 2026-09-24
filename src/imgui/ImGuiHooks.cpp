@@ -224,7 +224,7 @@ void initImGuiHooks() {
 
     wndProcO = SetWindowLongPtrA(window, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&wndProcHook));
     Logger::log("Hooked WndProc");
-    kiero::Status kiero_status = kiero::init(kiero::RenderType::Auto);
+    kiero::Status kiero_status = kiero::init(kiero::RenderType::D3D12);
 
     if (kiero_status == kiero::Status::Success) {
         auto renderType = kiero::getRenderType();

@@ -15,7 +15,6 @@ end
 add_defines(
     "KIERO_INCLUDE_D3D11=1",
     "KIERO_INCLUDE_D3D12=1",
-    "KIERO_INCLUDE_VULKAN=1",
     "KIERO_BUILD_EXAMPLES=0"
 )
 add_requires("fmt 10.2.1","ctre 3.8.1","magic_enum v0.9.7")
