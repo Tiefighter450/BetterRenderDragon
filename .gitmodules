@@ -1,3 +1,6 @@
 [submodule "lib/lib/kiero-src"]
 	path = lib/lib/kiero-src
 	url = https://github.com/BasedInc/kiero.git
+[submodule "lib/kiero-src"]
+	path = lib/kiero-src
+	url = https://github.com/BasedInc/kiero.git
