@@ -16,6 +16,9 @@ jobs:
         uses: xmake-io/github-action-setup-xmake@v1
 
       - name: Build for Windows (DLL)
+        env:
+          XMAKE_MAIN_REPO: 'https://github.com/xmake-io/xmake-repo.git'
+          XMAKE_BINARY_REPO: 'https://github.com/xmake-mirror/build-artifacts.git'
         run: |
           xmake f -p windows -m release -v -y
           xmake
