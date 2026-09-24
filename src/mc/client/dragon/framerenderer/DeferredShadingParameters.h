@@ -8,17 +8,6 @@
 
 namespace dragon {
 namespace framerenderer {
-struct PointLightLODingParameters {
-  std::vector<float> mLightingGridHierarchyRadii;
-  float mBlockLightAmbientLightIntensity_BeforeDiffuseFadeOut;
-  float mBlockLightAmbientLightIntensity_AfterDiffuseFadeOut;
-  float mDistanceFromCamera_StartDiffuseFadeOut;
-  float mDistanceFromCamera_EndDiffuseFadeOut;
-  float mDistanceFromCamera_StartSpecularFadeOut;
-  float mDistanceFromCamera_EndSpecularFadeOut;
-  bool mEnableFadeOutPointLightDiffuse;
-  bool mEnableFadeOutPointLightSpecular;
-};
 struct DeferredShadingParameters {
   enum class DirectionalShadowsMode : int {
     OFF = 0,
@@ -57,13 +46,6 @@ struct DeferredShadingParameters {
   bool mPointLightContributionEnabled;
   bool mEnableDeferredShadingSkyLightHeuristic;
   bool mEnableVolumetricSkyLightHeuristic;
-  bool mPointLightManhattanDistanceAttenuationEnabled;
-  bool mPointLightAttenuationWindowEnabled;
-  float mPointLightAttenuationWindowSmoothstepMin;
-  float mPointLightAttenuationWindowSmoothstepMax;
-  float mPointLightAttenuationWindowYScale;
-  float mPointLightAttenuationWindowYBias;
-  dragon::framerenderer::PointLightLODingParameters mPointLightLODingParameters;
   glm::vec3 mAmbientLightColor;
   float mAmbientLightIlluminance;
   float mSkyIntensity;
@@ -77,4 +59,4 @@ struct DeferredShadingParameters {
 } // namespace framerenderer
 } // namespace dragon
 
-static_assert(sizeof(dragon::framerenderer::DeferredShadingParameters) == 0xe0);
+static_assert(sizeof(dragon::framerenderer::DeferredShadingParameters) == 0x90);
