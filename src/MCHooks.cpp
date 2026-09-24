@@ -100,6 +100,9 @@ PFN_dragon_materials_BgfxFrameBuilder_reloadMaterial reloadMaterial = nullptr;
 // mce::framebuilder::BgfxFrameBuilder::endFrame
 DeclareHook(mce_framebuilder_BgfxFrameBuilder_endFrame, void, uintptr_t This,
             uintptr_t frameBuilderContext) {
+  uintptr_t params = *(uintptr_t *)(This + 0x350);
+  gDeferredParams = params ? (dragon::framerenderer::DeferredShadingParameters *)(params + 0xAC)
+                           : nullptr;
   if (brd::Options::reloadShadersAvailable && brd::Options::reloadShaders) {
     brd::Options::reloadShaders = false;
     reloadMaterial(This);
@@ -129,15 +132,6 @@ DeclareHook(RayTracingResourcesConstructor, void,
 
   original(_this, rtxOn, dlssOptions, screenResolution, renderScale,
            onResolutionChangedCallback, debugModeInfo);
-}
-
-DeclareHook(RayTracingResourcesConstrucstor, void, void *_this) {
-  original(_this);
-  if (!gDeferredParams) {
-    gDeferredParams =
-        (dragon::framerenderer::DeferredShadingParameters *)((int64_t)_this +
-                                                             176);
-  }
 }
 
 void initMCHooks() {
@@ -207,10 +201,4 @@ void initMCHooks() {
              // 1.21.100
              "48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 56 48 83 EC 50 0F 29 74 24 "
              "? 48 8B 05 ? ? ? ? 48 33 C4 48 89 44 24 ? 4D 8B F1");
-  TrySigHook(RayTracingResourcesConstrucstor,
-             // 1.26.20
-             // TODO
-             // 1.21.100
-             "48 89 5C 24 ? 48 89 74 24 ? 48 89 4C 24 ? 57 48 83 EC 20 48 8B "
-             "F9 33 F6 48 89 31 48 89 71 ? C7 41");
 }
