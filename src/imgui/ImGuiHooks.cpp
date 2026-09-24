@@ -224,8 +224,9 @@ void initImGuiHooks() {
 
     wndProcO = SetWindowLongPtrA(window, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&wndProcHook));
     Logger::log("Hooked WndProc");
+    kiero::Status kiero_status = kiero::init(kiero::RenderType::Auto);
 
-    if (kiero::init(kiero::RenderType::Auto) == kiero::Status::Success) {
+    if (kiero_status == kiero::Status::Success) {
         auto renderType = kiero::getRenderType();
 
         if (renderType == kiero::RenderType::D3D12) {
@@ -245,8 +246,26 @@ void initImGuiHooks() {
 
         presentHookImpl = safetyhook::create_inline(kiero::getMethod<&IDXGISwapChain::Present>(), &presentHook);
         Logger::log("Hooked present");
+    } else if (kiero_status == kiero::Status::UnknownError) {
+        Logger::log("Unknown Kiero Error");
+    } else if (kiero_status == kiero::Status::NotSupportedError) {
+        Logger::log("The requested Kiero backend is unsupported/unavailable");
+    } else if (kiero_status == kiero::Status::ModuleNotFoundError) {
+        Logger::log("A system or graphics DLL Kiero requires was not found");
+    } else if (kiero_status == kiero::Status::AlreadyInitializedError) {
+        Logger::log("Kiero is already initialized");
+    } else if (kiero_status == kiero::Status::NotInitializedError) {
+        Logger::log("Kiero is not initialized yet");
+    } else if (kiero_status == kiero::Status::NotImplementedError) {
+        Logger::log("An operation is not implemented on the current Kiero backend");
+    } else if (kiero_status == kiero::Status::NoSuchInterfaceError) {
+        Logger::log("The target interface for the method being bound could not be resolved");
+    } else if (kiero_status == kiero::Status::MethodAlreadyBoundError) {
+        Logger::log("Kiero attempted to bind to an already hooked function");
+    } else if (kiero_status == kiero::Status::MethodNotBoundError) {
+        Logger::log("Kiero attempted to unbind from a function that was not hooked");
     } else {
-        Logger::log("Failed to initialize Kiero");
+        Logger::log("Even more unknown Kiero Error");
     }
 
     TrySigHook(Mouse,
