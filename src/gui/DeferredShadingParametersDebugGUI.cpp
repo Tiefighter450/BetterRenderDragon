@@ -94,10 +94,6 @@ void DrawDeferredShadingParametersDebugWindow(
                   &cfg->mEnableDeferredShadingSkyLightHeuristic);
   ImGui::Checkbox("Enable Volumetric SkyLight Heuristic",
                   &cfg->mEnableVolumetricSkyLightHeuristic);
-  ImGui::Checkbox("Point Light Manhattan Distance Attenuation Enabled",
-                  &cfg->mPointLightManhattanDistanceAttenuationEnabled);
-  ImGui::Checkbox("Point Light Attenuation Window Enabled",
-                  &cfg->mPointLightAttenuationWindowEnabled);
 
   ImGui::InputFloat3("Ambient Light Color", (float *)&cfg->mAmbientLightColor);
   ImGui::InputFloat("Ambient Light Illuminance", &cfg->mAmbientLightIlluminance,
